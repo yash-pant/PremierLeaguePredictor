@@ -1,0 +1,24 @@
+[
+  {
+    "team": "Manchester City",
+    "squad_value_m": 1200,
+    "avg_age": 26.5,
+    "wage_index": 95,
+    "squad_depth": 88,
+    "injury_risk": 10,
+    "manager_stability": 98,
+    "attack_index": 96,
+    "defense_index": 92
+  },
+  {
+    "team": "Arsenal",
+    "squad_value_m": 950,
+    "avg_age": 25.4,
+    "wage_index": 85,
+    "squad_depth": 82,
+    "injury_risk": 15,
+    "manager_stability": 90,
+    "attack_index": 90,
+    "defense_index": 88
+  }
+]
