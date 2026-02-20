@@ -1,54 +1,120 @@
 # Premier League Winner Predictor
 
-This project predicts the Premier League champion based on squad-level features.
+A Python machine learning project that predicts the Premier League champion using squad-level features such as squad value, squad depth, and team strength indicators.
 
-It trains a machine learning model using synthetic squad data and predicts
-the team most likely to win a season.
+The model learns what a title-winning squad looks like and assigns a probability that each team wins the league.
 
-## Features Used
+This is a pipeline demonstration project, not a betting tool.
+
+------------------------------------------------------------
+
+FEATURES USED
+
 - Squad market value
 - Average age
 - Wage index
 - Squad depth
 - Injury risk
 - Manager stability
-- Attack strength index
-- Defense strength index
+- Attack strength
+- Defense strength
 
-## Setup
+------------------------------------------------------------
 
-```bash
-python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
-pip install -r requirements.txt
+SETUP
 
-## Transfermarkt (real data)
+Clone the repository:
 
-Direct scraping of Transfermarkt HTML is prohibited by their Terms, so this project uses an API-style extractor via Apify instead.
+    git clone https://github.com/YOUR_USERNAME/premier-league-winner-model.git
+    cd premier-league-winner-model
 
-### Steps
-1. Create an Apify account
-2. Get your API token
-3. Copy `.env.example` to `.env` and set:
-   - APIFY_TOKEN=...
-   - APIFY_ACTOR_ID=webdatalabs/transfermarkt-scraper (or another Transfermarkt actor you use)
+Create a virtual environment:
 
-### Run prediction using Transfermarkt squads
-```bash
-python src/predict.py --use_transfermarkt --season 2024-2025
-(Hosted Transfermarkt scraping services exist on Apify.)  [oai_citation:1‡Apify](https://apify.com/webdatalabs/transfermarkt-scraper/api/python?utm_source=chatgpt.com)
+    python -m venv venv
 
----
+Activate it:
 
-## How you run it (no IDE needed)
+Mac / Linux:
+    source venv/bin/activate
 
-1. Add the files above directly in GitHub (same folders).
-2. Locally (or Codespaces), run:
+Windows:
+    venv\Scripts\activate
 
-```bash
-pip install -r requirements.txt
-cp .env.example .env
-# edit .env with your APIFY_TOKEN
-python src/train.py
-python src/predict.py --use_transfermarkt --season 2024-2025
+Install dependencies:
+
+    pip install -r requirements.txt
+
+------------------------------------------------------------
+
+TRAIN MODEL (synthetic seasons)
+
+    python src/train.py
+
+The trained model will be saved to:
+
+    models/champion_model.joblib
+
+------------------------------------------------------------
+
+PREDICT WINNER (sample data)
+
+    python src/predict.py
+
+Input file:
+
+    data/sample_season.json
+
+------------------------------------------------------------
+
+REAL DATA MODE (Transfermarkt via API provider)
+
+This project does NOT directly scrape Transfermarkt pages.
+It uses a structured API provider (Apify actor) that returns squad data.
+
+Create environment file:
+
+    cp .env.example .env
+
+Edit .env and add your token:
+
+    APIFY_TOKEN=your_token_here
+    APIFY_ACTOR_ID=webdatalabs/transfermarkt-scraper
+
+Run prediction:
+
+    python src/predict.py --use_transfermarkt --season 2024-2025
+
+------------------------------------------------------------
+
+EVALUATE MODEL
+
+    python src/evaluate.py
+
+------------------------------------------------------------
+
+PROJECT STRUCTURE
+
+premier-league-winner-model/
+    data/
+    models/
+    src/
+        config.py
+        data_generator.py
+        feature_engineering.py
+        model.py
+        train.py
+        predict.py
+        evaluate.py
+        tm_apify.py
+        tm_normalize.py
+    tests/
+
+------------------------------------------------------------
+
+NOTES
+
+- Training uses generated historical seasons
+- Real squad prediction uses API data
+- This is a portfolio ML pipeline demo
+
+------------------------------------------------------------
